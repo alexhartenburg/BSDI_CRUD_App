@@ -1,0 +1,58 @@
+version: "3"
+
+volumes:
+  pgdatasource:
+
+services:
+  blog-db:
+    image: postgres
+    restart: always
+    environment:
+      DATABASE_HOST: 127.0.0.1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Bl0gP@$$w0rd
+      POSTGRES_DB: blog_db
+      POSTGRES_HOST: postgresql
+    env_file:
+      - server/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdatasource:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build: ./server
+    ports:
+      - "4000:4000"
+    depends_on:
+      blog-db:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=blog-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Bl0gP@$$w0rd
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=blog_db
+    volumes:
+      - type: bind
+        source: ./server
+        target: /app
+        command: npm run start:dev
+
+  app:
+    build: ./app
+    ports:
+      - "3000:3000"
+    volumes:
+      -type: bind
+      source: ./app
+      target: /app
+      # - "./front-end:/app"
+    depends_on:
+      - "server"
