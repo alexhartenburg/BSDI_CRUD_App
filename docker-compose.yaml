@@ -43,16 +43,15 @@ services:
       - type: bind
         source: ./server
         target: /app
-        command: npm run start:dev
 
   app:
     build: ./app
     ports:
       - "3000:3000"
     volumes:
-      -type: bind
-      source: ./app
-      target: /app
+      - type: bind
+        source: ./app
+        target: /app
       # - "./front-end:/app"
     depends_on:
       - "server"
