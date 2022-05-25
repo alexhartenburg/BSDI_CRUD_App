@@ -61,7 +61,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "bsdi-crud-app"
           heroku_email: "alexhartenburg@gmail.com"
-          appdir: "ui/"
+          appdir: "app/"
           usedocker: true
   
   # This workflow kicks off the deployment to Heroku for the UI
@@ -80,7 +80,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "bsdi-crud-api"
           heroku_email: "alexhartenburg@gmail.com"
-          appdir: "api/"
+          appdir: "server/"
           usedocker: true
 
   # This workflow kicks off the linter for your API.  
