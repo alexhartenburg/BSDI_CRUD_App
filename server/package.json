@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "if [$NODE_ENV == 'production']; then node index.js; else nodemon index.js; fi",
+    "start": "if [$NODE_ENV == 'production']; then node src/index.js; else nodemon src/index.js; fi",
     "test": "jest --watchAll"
   },
   "author": "",
