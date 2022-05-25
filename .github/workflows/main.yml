@@ -32,7 +32,7 @@ jobs:
       # Runs a set of commands using the runners shell to test the UI
       - name: Test UI
         run: |
-          docker run -e CI=true bsdi-crud-app npm run test
+          docker run -e CI=true bsdi-crud-app npm test
           
   # This workflow kicks off the build and test for the API
   build-and-test-api:
@@ -45,7 +45,7 @@ jobs:
           docker build -t bsdi-crud-api ./server
       - name: Test API
         run: |
-          docker run -e CI=true bsdi-crud-api npm run test
+          docker run -e CI=true bsdi-crud-api npm test
   
   # This workflow kicks off the deployment to Heroku for the UI
   deploy-ui:
