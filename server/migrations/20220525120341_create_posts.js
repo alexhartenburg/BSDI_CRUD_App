@@ -4,8 +4,8 @@
  */
  exports.up = function(knex) {
     return knex.schema.createTable("posts", (table) => {
-        table.increments();
-        table.string("user_id", 50);
+        table.increments("id");
+        table.integer("user_id", 50);
         table.foreign("user_id").references("users.id");
         table.string("title", 50);
         table.string("content", 50);

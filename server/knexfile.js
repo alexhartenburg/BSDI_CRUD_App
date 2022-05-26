@@ -6,7 +6,7 @@
 
  const HOST = process.env.DATABASE_HOST || '127.0.0.1';
  const USER = process.env.POSTGRES_USER || 'postgres';
- const PASSWORD = process.env.POSTGRES_PASSWORD || 'Bl0gP@$$w0rd';
+ const PASSWORD = process.env.POSTGRES_PASSWORD || 'docker';
  const DATABASE = process.env.POSTGRES_DB || 'blog_db';
  const PORT = process.env.PORT || 5432;
 
