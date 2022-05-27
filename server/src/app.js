@@ -13,17 +13,18 @@ var corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.status(200).send());
 
 app.post('/register', (req, res) => {
     if(!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password){
         res.status(400).send();
     }else{
-        const registerResponse = queries.register(req.body.firstName, req.body.lastName, req.body.username, req.body.password)
+        const hash = crypto.createHash('sha256').update(req.body.password + req.body.username).digest('base64');
+        const registerResponse = queries.register(req.body.firstName, req.body.lastName, req.body.username, hash)
         if(registerResponse){
             res.status(201).send(registerResponse);
         }else{
-            res.status(400).send();
+            res.status(500).send();
         }
         
     }

@@ -6,6 +6,13 @@ const request = supertest(app);
 
 jest.mock("../src/queries")
 
+describe("GET /", () => {
+    test("should return status 200", async () => {
+        const response = await request.get("/").send();
+        expect(response.statusCode).toBe(200);
+    })
+})
+
 describe("POST /register", () => {
     let registration;
     beforeEach(() => {
@@ -41,5 +48,10 @@ describe("POST /register", () => {
         expect(response.body.lastName).toEqual("Doe");
         expect(response.body.username).toEqual("jdoe");
         expect(response.body.password).toBe(hash);
+    })
+    test("should return status 500 when there is an error with the database query", async () => {
+        jest.spyOn(queries, 'register').mockImplementation(() => false)
+        const response = await request.post("/register").send(registration);
+        expect(response.statusCode).toBe(500);
     })
 })
