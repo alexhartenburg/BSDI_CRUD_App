@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "if [$NODE_ENV == 'production']; then node src/index.js; else nodemon src/index.js; fi",
-    "test": "jest --watchAll"
+    "test": "jest --coverage --watchAll "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.18.1",
     "jest": "^28.1.0",
     "knex": "^2.0.0",
