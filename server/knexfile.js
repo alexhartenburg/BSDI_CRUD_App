@@ -21,6 +21,16 @@
       database: DATABASE,
     },
   },
+  test: {
+    client: "postgresql",
+    connection: {
+      host: HOST,
+      password: PASSWORD,
+      user: USER,
+      port: PORT,
+      database: DATABASE,
+    },
+  },
 
   production: {
     client: 'postgresql',
