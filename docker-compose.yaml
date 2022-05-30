@@ -13,8 +13,6 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: blog_db
       POSTGRES_HOST: postgresql
-    env_file:
-      - server/.env
     ports:
       - "5432:5432"
 #    volumes:
@@ -39,6 +37,9 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_PORT=5432
       - POSTGRES_DB=blog_db
+      - SALT=NaCl
+    env_file:
+      - server/.env
     volumes:
       - type: bind
         source: ./server
