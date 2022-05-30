@@ -102,7 +102,6 @@ app.post('/post', authenticateToken, async (req, res) => {
         res.status(400).send("Required fields are missing");
     }else{
         let userID = JSON.parse(atob(req.headers["authorization"].split(".")[1]).replaceAll("[", "").replaceAll("]", "")).id;
-
         let id = await queries.addPost({
             user_id: userID,
             title: req.body.title,
