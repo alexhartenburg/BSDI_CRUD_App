@@ -1,4 +1,3 @@
-import { Experimental_CssVarsProvider } from '@mui/material';
 import { fireEvent, getByRole, render, screen } from '@testing-library/react';
 import MenuDrawer from '../MenuDrawer';
 

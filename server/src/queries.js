@@ -69,6 +69,7 @@ const getUserInfo = async (username) => {
 }
 
 const addPost = async (post) => {
+    console.log(post.content.length)
     return await knex('posts')
         .insert(post)
         .returning("id")
@@ -134,6 +135,13 @@ const getPost = async (id) => {
             console.log(err);
             return false;
         })
+    let user = await knex('users')
+        .where('id', '=', post[0].user_id)
+        .catch(err => {
+            console.log(err);
+        })
+    post[0].firstName = user[0].first_name;
+    post[0].lastName = user[0].last_name;
     if(post.length > 0){
         return post[0];
     }else{
@@ -144,22 +152,44 @@ const getPost = async (id) => {
 const getUserPosts = async (userID) => {
     let posts = await knex('posts')
         .where('user_id', '=', userID)
+        .orderBy('id', 'desc')
         .catch(err => {
             console.log(err);
             return false;
         })
-    if(posts.length > 0){
-        return posts;
-    }else{
-        return false;
-    }
+    let users = await knex('users')
+        .select('id', 'first_name', 'last_name')
+        .catch(err => {
+            console.log(err)
+        });
+    posts.forEach((post, i) => {
+        let user = users.find(user => user.id === post.user_id)
+        if(user){
+            posts[i].firstName = user.first_name;
+            posts[i].lastName = user.last_name;
+        }
+    })
+    return posts;
 }
 
 const getPosts = async () => {
     let posts = await knex('posts')
+        .orderBy('id', 'desc')
         .catch(err => {
             console.log(err)
         });
+    let users = await knex('users')
+        .select('id', 'first_name', 'last_name')
+        .catch(err => {
+            console.log(err)
+        });
+    posts.forEach((post, i) => {
+        let user = users.find(user => user.id === post.user_id)
+        if(user){
+            posts[i].firstName = user.first_name;
+            posts[i].lastName = user.last_name;
+        }
+    })
     if(posts.length > 0){
         return posts
     }else{
