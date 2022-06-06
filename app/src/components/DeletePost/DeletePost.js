@@ -31,7 +31,7 @@ const DeletePost = (props) => {
             }),
         };
         
-        fetch(`${apiUrl} post`, options)
+        fetch(`${apiUrl}post`, options)
             .then(res => {
                 if(res.status === 200){
                     return true;
