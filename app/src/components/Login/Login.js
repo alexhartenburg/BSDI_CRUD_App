@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import { UserContext } from '../../context/UserContext';
+import config from "../config";
 
-const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const style = {
     position: 'absolute',

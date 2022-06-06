@@ -3,8 +3,9 @@ import { Box, Button, Card, CardContent, Modal, TextField, Typography } from '@m
 import { UserContext } from '../../../context/UserContext';
 import { AllPostsContext } from '../../../pages/context/AllPostsContext';
 import '../css/postList.css';
+import config from "../config";
 
-const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const style = {
     position: 'absolute',

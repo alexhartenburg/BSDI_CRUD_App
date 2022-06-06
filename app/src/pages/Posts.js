@@ -2,8 +2,10 @@ import { useEffect, useState, useContext } from 'react';
 import { AllPostsContext } from './context/AllPostsContext';
 import { UserContext } from '../context/UserContext';
 import PostList from '../components/PostList/PostList';
+import config from "../config";
 
-const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
 
 const Posts = (props) => {
     const [posts, setPosts] = useState([]);

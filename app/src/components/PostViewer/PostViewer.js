@@ -3,8 +3,9 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Button, Switch, TextField } from '@mui/material';
 import DeletePost from "../DeletePost/DeletePost";
+import config from "../config";
 
-const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const PostViewer = (props) => {
     const [user, setUser] = useContext(UserContext)
