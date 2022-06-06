@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { AllPostsContext } from './context/AllPostsContext';
 import { UserContext } from '../context/UserContext';
 import PostList from '../components/PostList/PostList';
-import config from "../config";
+import config from "./config";
 
 const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 

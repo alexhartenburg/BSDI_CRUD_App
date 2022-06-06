@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import config from "../config";
+import config from "../../config";
 
 const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 

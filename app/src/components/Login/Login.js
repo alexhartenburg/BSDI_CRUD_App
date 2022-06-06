@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import { UserContext } from '../../context/UserContext';
-import config from "../config";
+import config from "../../config";
 
 const apiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
