@@ -8,7 +8,7 @@
         table.integer("user_id", 50);
         table.foreign("user_id").references("users.id");
         table.string("title", 50);
-        table.string("content", 50);
+        table.string("content", 5096);
     })
 };
 

@@ -6,13 +6,14 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "*",
-    methods: "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-    headers: "X-Requested-With,content-type",
-    credentials: true,
+    "origin": "*",
+    "methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+    "headers": "X-Requested-With, content-type, authorization",
+    "credentials": true,
 };
 app.use(express.json());
 app.use(cors(corsOptions)); 
+app.options('*', cors())
 
 // MIDDLEWARE
 function authenticateToken(request, response, next) {
@@ -20,8 +21,7 @@ function authenticateToken(request, response, next) {
       return response.sendStatus(400);
     }
     const authHeader = request.headers["authorization"];
-  
-    const token = authHeader && authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1];
     if (token == null) return response.sendStatus(401);
   
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -60,13 +60,22 @@ app.post('/login', async (req, res) => {
         let storedPassword = await queries.getPassword(req.body.username);
         let hash = crypto.createHash('sha256').update(req.body.password + req.body.username).digest('base64');
         if(storedPassword === hash){
-// REPLACE RESPONSE BODY WITH A LEGIT TOKEN
             let user = await queries.getUserInfo(req.body.username);
             let token = jwt.sign(JSON.stringify(user), process.env.ACCESS_TOKEN_SECRET);
             res.status(200).send({token: token});
         }else{
-            res.status(404).send("Incorrect username or password");
+            res.status(400).send("Incorrect username or password");
         }
+    }
+})
+
+app.get('/post/:id', async (req, res) => {
+    let id = req.params.id;
+    let post = await queries.getPost(id);
+    if(post){
+        res.status(200).send(post)
+    }else{
+        res.status(404).send("No post was found")
     }
 })
 
@@ -89,11 +98,7 @@ app.get('/posts/:userID', authenticateToken, async (req, res) => {
         res.status(401).send();
     }else{
         let posts = await queries.getUserPosts(userID)
-        if(posts){
-            res.status(200).send(posts)
-        }else{
-            res.status(404).send(`Could not find any posts for user ${userID}`)
-        }
+        res.status(200).send(posts)
     }
 })
 
@@ -108,12 +113,12 @@ app.post('/post', authenticateToken, async (req, res) => {
             content: req.body.content
         })
         if(id){
-            res.status(200).send({
-                id: id,
-                userID: req.body.userID,
-                title: req.body.title,
-                content: req.body.content
-            });
+            let posts = await queries.getUserPosts(userID)
+            if(posts){
+                res.status(200).send(posts)
+            }else{
+                res.status(500).send("Database error");
+            }
         }else{
             res.status(500).send("Database error");
         }
@@ -142,7 +147,7 @@ app.delete('/post', authenticateToken, async (req, res) => {
     }
 })
 
-app.patch('/post', authenticateToken, async (req, res) => {
+app.put('/post', authenticateToken, async (req, res) => {
     let user = JSON.parse(atob(req.headers["authorization"].split(".")[1]).replaceAll("[", "").replaceAll("]", ""));
     if(!req.body.id || (!req.body.title && !req.body.content)){
         res.status(400).send('No new title or content was provided');
