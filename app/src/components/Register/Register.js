@@ -143,7 +143,7 @@ const Register = () => {
                     password: password,
                 }),
             }
-            fetch(`${apiURL}register`, options)
+            fetch(`${apiUrl}register`, options)
                 .then(res => {
                     if(res.status === 201){
                         return(res.json())

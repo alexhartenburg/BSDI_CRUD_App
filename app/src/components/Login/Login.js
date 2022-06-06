@@ -88,7 +88,7 @@ const Login = () => {
               password: password,
             }),
         }
-        fetch(`${apiURL}login`, options)
+        fetch(`${apiUrl}login`, options)
             .then(res => {
                 if(res.status === 200){
                     return(res.json())

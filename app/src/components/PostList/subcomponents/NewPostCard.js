@@ -73,7 +73,7 @@ const NewPostCard = () => {
             }),
         };
         
-        fetch(`${apiURL}post`, options)
+        fetch(`${apiUrl}post`, options)
             .then(res => {
                 if(res.status === 200){
                     return res.json();
