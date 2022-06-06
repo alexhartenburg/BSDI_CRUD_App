@@ -35,6 +35,8 @@ const Posts = (props) => {
             .then(res => {
                 if(res.status === 200){
                     return res.json();
+                }else{
+                    return([])
                 }
             })
             .then(data => setPosts(data))
