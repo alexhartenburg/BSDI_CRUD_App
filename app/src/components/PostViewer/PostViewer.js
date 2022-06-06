@@ -17,7 +17,7 @@ const PostViewer = (props) => {
     const [contentErrorText, setContentErrorText] = useState('');
     const { id } = useParams()
     useEffect(() => {
-        fetch(`${apiURL}post/${id}`)
+        fetch(`${apiUrl}post/${id}`)
             .then(res => {
                 if(res.status === 200){
                     return(res.json());
