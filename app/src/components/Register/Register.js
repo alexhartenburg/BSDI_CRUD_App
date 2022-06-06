@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -140,7 +142,7 @@ const Register = () => {
                     password: password,
                 }),
             }
-            fetch('http://localhost:4000/register', options)
+            fetch(`${apiURL}register`, options)
                 .then(res => {
                     if(res.status === 201){
                         return(res.json())

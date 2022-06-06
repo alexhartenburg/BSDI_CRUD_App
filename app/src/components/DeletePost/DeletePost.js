@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const DeletePost = (props) => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -28,7 +30,7 @@ const DeletePost = (props) => {
             }),
         };
         
-        fetch('http://localhost:4000/post', options)
+        fetch(`${apiURL} post`, options)
             .then(res => {
                 if(res.status === 200){
                     return true;

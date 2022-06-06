@@ -3,6 +3,8 @@ import { AllPostsContext } from './context/AllPostsContext';
 import { UserContext } from '../context/UserContext';
 import PostList from '../components/PostList/PostList';
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const Posts = (props) => {
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useContext(UserContext)
@@ -22,10 +24,10 @@ const Posts = (props) => {
                   "authorization": `bearer ${token}`,
                 },
             };
-            url = `http://localhost:4000/posts/${user.id}`;
+            url = `${apiURL}posts/${user.id}`;
         }else if(props.posts === 'all'){
             options = {};
-            url = 'http://localhost:4000/posts';
+            url = `${apiURL}posts`;
         }
         fetch(url, options)
             .then(res => {

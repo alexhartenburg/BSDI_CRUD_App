@@ -5,6 +5,8 @@ import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import { UserContext } from '../../context/UserContext';
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -85,7 +87,7 @@ const Login = () => {
               password: password,
             }),
         }
-        fetch('http://localhost:4000/login', options)
+        fetch(`${apiURL}login`, options)
             .then(res => {
                 if(res.status === 200){
                     return(res.json())

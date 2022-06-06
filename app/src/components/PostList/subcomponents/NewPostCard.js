@@ -4,6 +4,8 @@ import { UserContext } from '../../../context/UserContext';
 import { AllPostsContext } from '../../../pages/context/AllPostsContext';
 import '../css/postList.css';
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -70,7 +72,7 @@ const NewPostCard = () => {
             }),
         };
         
-        fetch('http://localhost:4000/post', options)
+        fetch(`${apiURL}post`, options)
             .then(res => {
                 if(res.status === 200){
                     return res.json();

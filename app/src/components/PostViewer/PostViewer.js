@@ -4,6 +4,8 @@ import { UserContext } from "../../context/UserContext";
 import { Button, Switch, TextField } from '@mui/material';
 import DeletePost from "../DeletePost/DeletePost";
 
+const apiURL = process.env.APU_URL || 'http://localhost:4000/';
+
 const PostViewer = (props) => {
     const [user, setUser] = useContext(UserContext)
     const [edit, setEdit] = useState(false);
@@ -14,7 +16,7 @@ const PostViewer = (props) => {
     const [contentErrorText, setContentErrorText] = useState('');
     const { id } = useParams()
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
+        fetch(`${apiURL}post/${id}`)
             .then(res => {
                 if(res.status === 200){
                     return(res.json());
@@ -66,7 +68,7 @@ const PostViewer = (props) => {
                 }),
             };
             
-            fetch('http://localhost:4000/post', options)
+            fetch(`${apiURL}post`, options)
                 .then(res => {
                     if(res.status === 200){
                         return res.json();
